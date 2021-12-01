@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\Applicant;
+use App\Models\Company;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -17,8 +20,19 @@ class User extends Authenticatable
      *
      * @var string[]
      */
+
+    public function person () {
+        if(auth()->check()){
+            $accountType = auth()->user()->accountType;
+
+            if($accountType == "applicant"){
+                return $this->hasOne(Applicant::class);
+            }
+        }
+    }
+
     protected $fillable = [
-        'name',
+        'accountType',
         'email',
         'password',
     ];
