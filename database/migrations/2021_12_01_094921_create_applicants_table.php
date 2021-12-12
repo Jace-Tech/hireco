@@ -21,6 +21,8 @@ class CreateApplicantsTable extends Migration
             $table->string("lastname")->nullable();
             $table->longText("bio")->nullable();
             $table->string("title")->nullable();
+            $table->integer("price_per_hour")->nullable();
+            $table->string("country")->nullable();
             $table->string("image")->nullable();
             $table->timestamps();
         });

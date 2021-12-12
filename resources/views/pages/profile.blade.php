@@ -9,13 +9,7 @@
                 <h3>Settings</h3>
 
                 <!-- Breadcrumbs -->
-                <nav id="breadcrumbs" class="dark">
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Dashboard</a></li>
-                        <li>Settings</li>
-                    </ul>
-                </nav>
+
             </div>
 
             <!-- Row -->
@@ -31,88 +25,96 @@
                         </div>
 
                         <div class="content with-padding padding-bottom-0">
+                            <form action=" {{ route('profile') }} " method="post" enctype="multipart/form-data">
+                                <div class="row">
+                                    @csrf
+                                    <div class="col-xs-12 col-md-3">
+                                        <div class="avatar-wrapper" data-tippy-placement="bottom" title="Change Avatar">
+                                            @if(auth()->user()->person->image)
+                                                <img class="profile-pic" src="/applicants/image/{{ auth()->user()->person->image }}" alt="" />
+                                            @else
+                                                <img class="profile-pic" src="/images/user-avatar-placeholder.png" alt="" />
+                                            @endif
 
-                            <div class="row">
-
-                                <div class="col-auto">
-                                    <div class="avatar-wrapper" data-tippy-placement="bottom" title="Change Avatar">
-                                        <img class="profile-pic" src="/images/user-avatar-placeholder.png" alt="" />
-                                        <div class="upload-button"></div>
-                                        <input class="file-upload" name="image" type="file" accept="image/*"/>
+                                            <div class="upload-button"></div>
+                                            <input class="file-upload" name="image" type="file" accept="image/*"/>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col">
-                                    <div class="row">
+                                    <div class="col-xs-12 col-md-9">
+                                        <div class="row">
 
-                                        <div class="col-xl-6">
-                                            <div class="submit-field">
-                                                <h5>First Name</h5>
-                                                @if(auth()->user()->person->firstname)
-                                                    <input type="text" name="firstname" class="with-border" value="{{ auth()->user()->person->firstname }}">
-                                                @else
-                                                    <input type="text" class="with-border" name="firstname" value="">
-                                                @endif
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-6">
-                                            <div class="submit-field">
-                                                <h5>Last Name</h5>
-                                                @if(auth()->user()->person->lastname)
-                                                    <input type="text" name="lastname" class="with-border" value="{{ auth()->user()->person->lastname }}">
-                                                @else
-                                                    <input type="text" class="with-border" name="lastname" value="">
-                                                @endif
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-6">
-                                            <!-- Account Type -->
-                                            <div class="submit-field">
-                                                <h5>Account Type</h5>
-                                                <div class="account-type">
-                                                    @if(auth()->user()->accountType == "applicant")
-                                                        <div>
-                                                            <input type="radio" name="account-type" id="applicant-radio" class="account-type-radio" checked/>
-                                                            <label for="applicant-radio" class="ripple-effect-dark"><i class="icon-material-outline-account-circle"></i> Applicant</label>
-                                                        </div>
-
-                                                        <div>
-                                                            <input type="radio" name="account-type" id="employer-radio" class="account-type-radio"/>
-                                                            <label for="employer-radio" class="ripple-effect-dark"><i class="icon-material-outline-business-center"></i> Company</label>
-                                                        </div>
+                                            <div class="col-xl-6">
+                                                <div class="submit-field">
+                                                    <h5>First Name</h5>
+                                                    @if(auth()->user()->person->firstname)
+                                                        <input type="text" name="firstname" class="with-border" value="{{ auth()->user()->person->firstname }}">
                                                     @else
-                                                        <div>
-                                                            <input type="radio" name="account-type" id="applicant-radio" class="account-type-radio"/>
-                                                            <label for="applicant-radio" class="ripple-effect-dark"><i class="icon-material-outline-account-circle"></i> Applicant</label>
-                                                        </div>
-
-                                                        <div>
-                                                            <input type="radio" name="account-type" id="employer-radio" class="account-type-radio checked"/>
-                                                            <label for="employer-radio" class="ripple-effect-dark"><i class="icon-material-outline-business-center"></i> Company</label>
-                                                        </div>
+                                                        <input type="text" class="with-border" name="firstname" value="">
                                                     @endif
+                                                </div>
+                                            </div>
 
+                                            <div class="col-xl-6">
+                                                <div class="submit-field">
+                                                    <h5>Last Name</h5>
+                                                    @if(auth()->user()->person->lastname)
+                                                        <input type="text" name="lastname" class="with-border" value="{{ auth()->user()->person->lastname }}">
+                                                    @else
+                                                        <input type="text" class="with-border" name="lastname" value="">
+                                                    @endif
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-6">
+                                                <!-- Account Type -->
+                                                <div class="submit-field">
+                                                    <h5>Account Type</h5>
+                                                    <div class="account-type">
+                                                        @if(auth()->user()->accountType == "applicant")
+                                                            <div>
+                                                                <input type="radio" name="account_type" value="applicant" id="applicant-radio" class="account-type-radio" checked/>
+                                                                <label for="applicant-radio" class="ripple-effect-dark"><i class="icon-material-outline-account-circle"></i> Applicant</label>
+                                                            </div>
+
+                                                            <div>
+                                                                <input type="radio" name="account_type" value="company" id="employer-radio" class="account-type-radio"/>
+                                                                <label for="employer-radio" class="ripple-effect-dark"><i class="icon-material-outline-business-center"></i> Company</label>
+                                                            </div>
+                                                        @else
+                                                            <div>
+                                                                <input type="radio" name="account_type" value="applicant" id="applicant-radio" class="account-type-radio"/>
+                                                                <label for="applicant-radio" class="ripple-effect-dark"><i class="icon-material-outline-account-circle"></i> Applicant</label>
+                                                            </div>
+
+                                                            <div>
+                                                                <input type="radio" name="account_type" value="company" id="employer-radio" class="account-type-radio checked"/>
+                                                                <label for="employer-radio" class="ripple-effect-dark"><i class="icon-material-outline-business-center"></i> Company</label>
+                                                            </div>
+                                                        @endif
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-6">
+                                                <div class="submit-field">
+                                                    <h5>Email</h5>
+                                                    @if(auth()->user()->email)
+                                                        <input type="email" name="email" class="with-border" value="{{ auth()->user()->email }}">
+                                                    @else
+                                                        <input type="email" class="with-border" name="email" value="">
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <div class="col-xl-6">
-                                            <div class="submit-field">
-                                                <h5>Email</h5>
-                                                @if(auth()->user()->email)
-                                                    <input type="email" name="email" class="with-border" value="{{ auth()->user()->email }}">
-                                                @else
-                                                    <input type="email" class="with-border" name="email" value="">
-                                                @endif
-                                            </div>
-                                        </div>
-
+                                    <div class="col-12 d-flex justify-content-end padding-bottom-20">
+                                        <button value="account" name="submit" type="submit" class="button ripple-effect big margin-top-10 margin-bottom-10">Save Changes</button>
                                     </div>
                                 </div>
-                            </div>
-
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -127,189 +129,142 @@
                         </div>
 
                         <div class="content">
-                            <ul class="fields-ul">
-                            <li>
-                                <div class="row">
-                                    <div class="col-xl-4">
-                                        <div class="submit-field">
-                                            <div class="bidding-widget">
-                                                <!-- Headline -->
-                                                <span class="bidding-detail">Set your <strong>minimal hourly rate</strong></span>
+                            <form action="{{ route('profile') }}" enctype="multipart/form-data" method="post">
 
-                                                <!-- Slider -->
-                                                <div class="bidding-value margin-bottom-10">$<span id="biddingVal"></span></div>
-                                                <input class="bidding-slider" type="text" value="" data-slider-handle="custom" data-slider-currency="$" data-slider-min="5" data-slider-max="150" data-slider-value="35" data-slider-step="1" data-slider-tooltip="hide" />
-                                            </div>
-                                        </div>
-                                    </div>
+                                @csrf
 
-                                    <div class="col-xl-4">
-                                        <div class="submit-field">
-                                            <h5>Skills <i class="help-icon" data-tippy-placement="right" title="Add up to 10 skills"></i></h5>
+                                <ul class="fields-ul">
+                                    <li>
+                                        <div class="row">
+                                            
 
-                                            <!-- Skills List -->
-                                            <div class="keywords-container">
-                                                <div class="keyword-input-container">
-                                                    <input type="text" class="keyword-input with-border" placeholder="e.g. Angular, Laravel"/>
-                                                    <button class="keyword-input-button ripple-effect"><i class="icon-material-outline-add"></i></button>
+                                            {{-- <div class="col-xl-6">
+                                                <div class="submit-field">
+                                                    <h5>Skills <i class="help-icon" data-tippy-placement="right" title="Add up to 5 skills"></i></h5>
+
+                                                    <!-- Skills List -->
+                                                    <div class="keywords-container">
+                                                        <div class="keyword-input-container">
+                                                            <input type="text" class="keyword-input with-border" placeholder="e.g. ms word, excel "/>
+                                                            <input type="hidden" name="skills" id="skill">
+                                                            <button type="button" class="keyword-input-button ripple-effect"><i class="icon-material-outline-add"></i></button>
+                                                        </div>
+                                                        @if(auth()->user()->skill->count())
+                                                            <div class="keywords-list">
+                                                                <span class="keyword"><span class="keyword-remove"></span><span class="keyword-text">Angular</span></span>
+                                                                <span class="keyword"><span class="keyword-remove"></span><span class="keyword-text">Vue JS</span></span>
+                                                                <span class="keyword"><span class="keyword-remove"></span><span class="keyword-text">iOS</span></span>
+                                                                <span class="keyword"><span class="keyword-remove"></span><span class="keyword-text">Android</span></span>
+                                                                <span class="keyword"><span class="keyword-remove"></span><span class="keyword-text">Laravel</span></span>
+                                                            </div>
+                                                        @else
+                                                            <div class="keywords-list">
+                                                            </div>
+                                                        @endif
+                                                        <div class="clearfix"></div>
+                                                    </div>
                                                 </div>
-                                                <div class="keywords-list">
-                                                    <span class="keyword"><span class="keyword-remove"></span><span class="keyword-text">Angular</span></span>
-                                                    <span class="keyword"><span class="keyword-remove"></span><span class="keyword-text">Vue JS</span></span>
-                                                    <span class="keyword"><span class="keyword-remove"></span><span class="keyword-text">iOS</span></span>
-                                                    <span class="keyword"><span class="keyword-remove"></span><span class="keyword-text">Android</span></span>
-                                                    <span class="keyword"><span class="keyword-remove"></span><span class="keyword-text">Laravel</span></span>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                            </div> --}}
 
-                                    <div class="col-xl-4">
-                                        <div class="submit-field">
-                                            <h5>Attachments</h5>
+                                            <div class="col-xl-6">
+                                                <div class="submit-field">
+                                                    <h5>Category</h5>
+                                                    <select name="category" class="selectpicker with-border" data-size="7" title="Choose Category" data-live-search="true">
+                                                        @foreach($categories as $category)
+                                                            @if(auth()->user()->person->category  == $category->id) 
+                                                                <option selected value="{{ $category->id }}">{{$category->category}}</option>
+                                                            @else
+                                                                <option value="{{ $category->id }}">{{$category->category}}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
 
-                                            <!-- Attachments -->
-                                            <div class="attachments-container margin-top-0 margin-bottom-0">
-                                                <div class="attachment-box ripple-effect">
-                                                    <span>Cover Letter</span>
-                                                    <i>PDF</i>
-                                                    <button class="remove-attachment" data-tippy-placement="top" title="Remove"></button>
-                                                </div>
-                                                <div class="attachment-box ripple-effect">
-                                                    <span>Contract</span>
-                                                    <i>DOCX</i>
-                                                    <button class="remove-attachment" data-tippy-placement="top" title="Remove"></button>
+
                                                 </div>
                                             </div>
-                                            <div class="clearfix"></div>
 
-                                            <!-- Upload Button -->
-                                            <div class="uploadButton margin-top-0">
-                                                <input class="uploadButton-input" type="file" accept="image/*, application/pdf" id="upload" multiple/>
-                                                <label class="uploadButton-button ripple-effect" for="upload">Upload Files</label>
-                                                <span class="uploadButton-file-name">Maximum file size: 10 MB</span>
+                                            <div class="col-xl-6">
+                                                <div class="submit-field">
+                                                    <h5>Attachment</h5>
+
+                                                    <!-- Attachments -->
+                                                    <div class="attachments-container margin-top-0 margin-bottom-0">
+
+                                                        @if(auth()->user()->attachment->count())
+                                                            <div class="attachment-box ripple-effect">
+                                                                <span>Cover Letter</span>
+                                                                <i>PDF</i>
+                                                                <button class="remove-attachment" data-tippy-placement="top" title="Remove"></button>
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="clearfix"></div>
+
+                                                    <!-- Upload Button -->
+                                                    <div class="uploadButton margin-top-0">
+                                                        <input class="uploadButton-input" name="attachment" type="file" accept="application/pdf, application/msword" id="upload" multiple/>
+                                                        <label class="uploadButton-button ripple-effect" for="upload">Upload CV</label>
+                                                        <span class="uploadButton-file-name">Maximum file size: 10 MB</span>
+                                                    </div>
+
+                                                </div>
                                             </div>
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="row">
-                                    <div class="col-xl-6">
-                                        <div class="submit-field">
-                                            <h5>Tagline</h5>
-                                            <input type="text" class="with-border" value="iOS Expert + Node Dev">
-                                        </div>
-                                    </div>
+                                            {{-- <div class="col-xl-12">
+                                                <div class="submit-field">
+                                                    <div class="bidding-widget">
+                                                        <!-- Headline -->
+                                                        <span class="bidding-detail">Set your <strong>minimal hourly rate</strong></span>
 
-                                    <div class="col-xl-6">
-                                        <div class="submit-field">
-                                            <h5>Nationality</h5>
-                                            <select class="selectpicker with-border" data-size="7" title="Select Job Type" data-live-search="true">
-                                                <option value="AR">Argentina</option>
-                                                <option value="AM">Armenia</option>
-                                                <option value="AW">Aruba</option>
-                                                <option value="AU">Australia</option>
-                                                <option value="AT">Austria</option>
-                                                <option value="AZ">Azerbaijan</option>
-                                                <option value="BS">Bahamas</option>
-                                                <option value="BH">Bahrain</option>
-                                                <option value="BD">Bangladesh</option>
-                                                <option value="BB">Barbados</option>
-                                                <option value="BY">Belarus</option>
-                                                <option value="BE">Belgium</option>
-                                                <option value="BZ">Belize</option>
-                                                <option value="BJ">Benin</option>
-                                                <option value="BM">Bermuda</option>
-                                                <option value="BT">Bhutan</option>
-                                                <option value="BG">Bulgaria</option>
-                                                <option value="BF">Burkina Faso</option>
-                                                <option value="BI">Burundi</option>
-                                                <option value="KH">Cambodia</option>
-                                                <option value="CM">Cameroon</option>
-                                                <option value="CA">Canada</option>
-                                                <option value="CV">Cape Verde</option>
-                                                <option value="KY">Cayman Islands</option>
-                                                <option value="CO">Colombia</option>
-                                                <option value="KM">Comoros</option>
-                                                <option value="CG">Congo</option>
-                                                <option value="CK">Cook Islands</option>
-                                                <option value="CR">Costa Rica</option>
-                                                <option value="CI">Côte d'Ivoire</option>
-                                                <option value="HR">Croatia</option>
-                                                <option value="CU">Cuba</option>
-                                                <option value="CW">Curaçao</option>
-                                                <option value="CY">Cyprus</option>
-                                                <option value="CZ">Czech Republic</option>
-                                                <option value="DK">Denmark</option>
-                                                <option value="DJ">Djibouti</option>
-                                                <option value="DM">Dominica</option>
-                                                <option value="DO">Dominican Republic</option>
-                                                <option value="EC">Ecuador</option>
-                                                <option value="EG">Egypt</option>
-                                                <option value="GP">Guadeloupe</option>
-                                                <option value="GU">Guam</option>
-                                                <option value="GT">Guatemala</option>
-                                                <option value="GG">Guernsey</option>
-                                                <option value="GN">Guinea</option>
-                                                <option value="GW">Guinea-Bissau</option>
-                                                <option value="GY">Guyana</option>
-                                                <option value="HT">Haiti</option>
-                                                <option value="HN">Honduras</option>
-                                                <option value="HK">Hong Kong</option>
-                                                <option value="HU">Hungary</option>
-                                                <option value="IS">Iceland</option>
-                                                <option value="IN">India</option>
-                                                <option value="ID">Indonesia</option>
-                                                <option value="NO">Norway</option>
-                                                <option value="OM">Oman</option>
-                                                <option value="PK">Pakistan</option>
-                                                <option value="PW">Palau</option>
-                                                <option value="PA">Panama</option>
-                                                <option value="PG">Papua New Guinea</option>
-                                                <option value="PY">Paraguay</option>
-                                                <option value="PE">Peru</option>
-                                                <option value="PH">Philippines</option>
-                                                <option value="PN">Pitcairn</option>
-                                                <option value="PL">Poland</option>
-                                                <option value="PT">Portugal</option>
-                                                <option value="PR">Puerto Rico</option>
-                                                <option value="QA">Qatar</option>
-                                                <option value="RE">Réunion</option>
-                                                <option value="RO">Romania</option>
-                                                <option value="RU">Russian Federation</option>
-                                                <option value="RW">Rwanda</option>
-                                                <option value="SZ">Swaziland</option>
-                                                <option value="SE">Sweden</option>
-                                                <option value="CH">Switzerland</option>
-                                                <option value="TR">Turkey</option>
-                                                <option value="TM">Turkmenistan</option>
-                                                <option value="TV">Tuvalu</option>
-                                                <option value="UG">Uganda</option>
-                                                <option value="UA">Ukraine</option>
-                                                <option value="GB">United Kingdom</option>
-                                                <option value="US" selected>United States</option>
-                                                <option value="UY">Uruguay</option>
-                                                <option value="UZ">Uzbekistan</option>
-                                                <option value="YE">Yemen</option>
-                                                <option value="ZM">Zambia</option>
-                                                <option value="ZW">Zimbabwe</option>
-                                            </select>
+                                                        <!-- Slider -->
+                                                        <div class="bidding-value margin-bottom-10">$<span id="biddingVal"></span></div>
+                                                        @if(auth()->user()->person->price_per_hour)
+                                                            <input class="bidding-slider" name="price"  type="text" value="" data-slider-handle="custom" data-slider-currency="$" data-slider-min="5" data-slider-max="150" data-slider-value="{{ auth()->user()->person->price_per_hour }}" data-slider-step="1" data-slider-tooltip="hide" />
+                                                        @else
+                                                            <input class="bidding-slider" name="price"  type="text" value="" data-slider-handle="custom" data-slider-currency="$" data-slider-min="5" data-slider-max="150" data-slider-value="5" data-slider-step="1" data-slider-tooltip="hide" />
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div> --}}
                                         </div>
-                                    </div>
+                                    </li>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-xl-6">
+                                                <div class="submit-field">
+                                                    <h5>Tagline</h5>
+                                                    <input type="text" name="title" class="with-border" value="" placeholder="eg. Chemical Engineer"></div>
+                                            </div>
 
-                                    <div class="col-xl-12">
-                                        <div class="submit-field">
-                                            <h5>Introduce Yourself</h5>
-                                            <textarea cols="30" rows="5" class="with-border">Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</textarea>
+                                            <div class="col-xl-6">
+                                                <div class="submit-field">
+                                                    <h5>Nationality</h5>
+                                                    <select name="country" class="selectpicker with-border" data-size="7" title="Select Country" data-live-search="true">
+                                                        @foreach ($countries as $country)
+                                                            <option value="{{ $country['code'] }}" @if((auth()->user()->person->country) == $country['code']) selected  @endif> {{ $country['name'] }} </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-12">
+                                                <div class="submit-field">
+                                                    <h5>Introduce Yourself</h5>
+                                                    @if(auth()->user()->person->bio)
+                                                        <textarea name="bio"  cols="30" rows="5" class="with-border">{{ auth()->user()->person->bio }}</textarea>
+                                                    @else
+                                                        <textarea name="bio"  cols="30" rows="5" class="with-border"></textarea>
+                                                    @endif
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 padding-bottom-20">
+                                                <button type="submit" name="submit" value="profile" class="button ripple-effect big margin-top-10">Save Changes</button>
+                                            </div>
                                         </div>
-                                    </div>
-
-                                </div>
-                            </li>
-                        </ul>
+                                    </li>
+                                </ul>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -324,44 +279,45 @@
                         </div>
 
                         <div class="content with-padding">
-                            <div class="row">
-                                <div class="col-xl-4">
-                                    <div class="submit-field">
-                                        <h5>Current Password</h5>
-                                        <input type="password" class="with-border">
+                            <form>
+                                <div class="row">
+                                    <div class="col-xl-4">
+                                        <div class="submit-field">
+                                            <h5>Current Password</h5>
+                                            <input type="password" class="with-border">
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-xl-4">
-                                    <div class="submit-field">
-                                        <h5>New Password</h5>
-                                        <input type="password" class="with-border">
+                                    <div class="col-xl-4">
+                                        <div class="submit-field">
+                                            <h5>New Password</h5>
+                                            <input type="password" class="with-border">
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-xl-4">
-                                    <div class="submit-field">
-                                        <h5>Repeat New Password</h5>
-                                        <input type="password" class="with-border">
+                                    <div class="col-xl-4">
+                                        <div class="submit-field">
+                                            <h5>Repeat New Password</h5>
+                                            <input type="password" class="with-border">
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-xl-12">
-                                    <div class="checkbox">
-                                        <input type="checkbox" id="two-step" checked>
-                                        <label for="two-step"><span class="checkbox-icon"></span> Enable Two-Step Verification via Email</label>
+                                    <!-- <div class="col-xl-12">
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="two-step" checked>
+                                            <label for="two-step"><span class="checkbox-icon"></span> Enable Two-Step Verification via Email</label>
+                                        </div>
+                                    </div> -->
+
+
+                                    <div class="col-12 padding-bottom-20">
+                                        <button type="submit" class="button ripple-effect big margin-top-10">Save Changes</button>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-
-                <!-- Button -->
-                <div class="col-xl-12">
-                    <a href="#" class="button ripple-effect big margin-top-30">Save Changes</a>
-                </div>
-
             </div>
             <!-- Row / End -->
 
@@ -369,7 +325,7 @@
             <div class="dashboard-footer-spacer"></div>
             <div class="small-footer margin-top-15">
                 <div class="small-footer-copyrights">
-                    © 2018 <strong>Hireo</strong>. All Rights Reserved.
+                    © @php echo date("Y");  @endphp <strong>OnyxsLogistics</strong>. All Rights Reserved.
                 </div>
                 <ul class="footer-social-links">
                     <li>
@@ -399,4 +355,20 @@
 
         </div>
     </div>
+
+    <script type="text/javascript">
+        const btn = document.querySelector('.keyword-input-button')
+        const input = document.querySelector('.keyword-input')
+        let word = ""
+
+        input.addEventListener('keydown', function(e) {
+            word += input.value
+        });
+
+        btn.addEventListener('click', function(e) {
+            document.querySelector('#skill').value += `${word} `
+            word = ""
+        });
+
+    </script>
 @endsection

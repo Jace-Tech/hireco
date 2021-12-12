@@ -10,6 +10,10 @@ use Laravel\Sanctum\HasApiTokens;
 
 use App\Models\Applicant;
 use App\Models\Company;
+use App\Models\Message;
+use App\Models\Bookmark;
+use App\Models\Attachments;
+use App\Models\Skill;
 
 class User extends Authenticatable
 {
@@ -29,6 +33,22 @@ class User extends Authenticatable
                 return $this->hasOne(Applicant::class);
             }
         }
+    }
+
+    public function skill () {
+        return $this->hasMany(Skill::class);
+    }
+
+    public function message () {
+        return $this->hasMany(Message::class);
+    }
+
+    public function attachment () {
+        return $this->hasOne(Attachments::class);
+    }
+
+    public function bookmark() {
+        return $this->hasMany(Bookmark::class);
     }
 
     protected $fillable = [

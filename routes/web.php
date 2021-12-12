@@ -6,6 +6,7 @@ use App\Http\Controllers\Basic\ProfileController;
 use App\Http\Controllers\Basic\DashboardController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ApplicantController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -15,6 +16,8 @@ Route::get('/job', [HomeController::class, 'index'])->name('job');
 Route::post('/job', [HomeController::class, 'index']);
 
 Route::get('/applicant', [HomeController::class, 'index'])->name('applicant');
+
+Route::get('/applicant/{id}', [ApplicantController::class, 'getApplicant'])->name('applicant.profile');
 
 Route::get('/company', [HomeController::class, 'index'])->name('company');
 
@@ -32,12 +35,19 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/login/facebook/redirect', [LoginController::class, 'facebookRedirect'])->name("facebook.redirect");
 });
 
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/job/create', [HomeController::class, 'index'])->name('job.post');
 
     Route::get('/dashboard/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::post('/dashboard/profile', [ProfileController::class, 'store']);
+
+    Route::post('/applicant/{id}/bookmark', [ApplicantController::class, 'bookmark'])->name('applicant.bookmark');
+    Route::delete('/applicant/{id}/bookmark', [ApplicantController::class, 'removeBookmark']);
+
+
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/logout', [LoginController::class, 'logout']);
+
 
 });

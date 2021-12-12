@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Basic;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Applicant as ApplicantModel;
 use Illuminate\Support\Collection;
-use App\Models\Category;
 
-class ProfileController extends Controller
+class ApplicantController extends Controller
 {
-    public function index (Request $request){
-
-        $countries = [
+    public function getApplicant($id)
+    {
+        
+        $countries = collect([
             [
                 "code" =>"AR",
                 "name" => "Argentina"
@@ -372,89 +372,34 @@ class ProfileController extends Controller
                 "code" =>"ZW",
                 "name" => "Zimbabwe"
             ],
-        ];
+        ]);
 
-        $categories = Category::all();
-        return view('pages.profile', [
-            'categories' => $categories,
-            'countries' => $countries
+        $applicant = ApplicantModel::where('applicantId', $id)->first();
+        $country = $countries->firstWhere('code', "NG");
+    
+        return view('pages.applicant', [
+            'applicant' => $applicant,
+            'country' => $country
         ]);
     }
 
-    public function store (Request $request){
-
-        if($request->submit == "account"){
-            $request->validate([
-                'submit' => 'required',
-                'firstname' => 'required',
-                'lastname' => 'required',
-                'email' => 'required',
-                'account_type' => 'required',
-            ]);
-
-            if($request->account_type){
-                $imageName = "";
-                if($request->image){
-                    $imageName = time() . "-" . $request->firstname . '.'  . $request->image->extension();
-                    $request->image->move(public_path('applicants/image'), $imageName);
-                }
-
-                auth()->user()->person()->update([
-                    'firstname' => $request->firstname,
-                    'lastname' => $request->lastname,
-                    'image' => $imageName
-                ]);
-
-                auth()->user()->update([
-                    'email' => $request->email,
-                    'accountType' => $request->account_type
-                ]);
-
-                return redirect()->back();
-            }
-        }
-        
-        if($request->submit == "profile"){
-            $attachments = collect($request->attachments);
-
-            $request->validate([
-                'category' => 'required',
-                'country' => 'required',
-                'attachments' => 'required',
-                'title' => 'required',
-                'bio' => 'required'
-            ]);
-
-            if(auth()->user()->accountType == 'applicant') {
-                dd($request);
-                
-                $fileName = time() . "-" . auth()->user()->person->firstname . '.'  . $request->attachment->extension();
-                $request->attachment->move(public_path('applicants/attachment'), $fileName);
-
-                auth()->user()->person()->update([
-                    'category' => $request->category,
-                    'country' => $request->country,
-                    'title' => $request->title,
-                    'bio' => $request->bio
-                ]);
-
-                auth()->user()->attachment()->create([
-                    "attachment" => $fileName
-                ]);
-
-                return redirect()->back();
-            }
+    public function bookmark($id)
+    {
+        auth()->user()->bookmark()->create([
+            'user' => $id
+        ]);
 
 
-
-
-        }
-
-
-
-
-
-
+        return back()->with("message", "bookmarked");
     }
 
+    public function removeBookmark($id)
+    {
+        auth()->user()->bookmark()->destroy([
+            'user' => $id
+        ]);
+
+
+        return back();
+    }
 }

@@ -5,17 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Bookmark extends Model
+class Attachments extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'user',
-        'seen'
-    ];
-
-    protected $attributes = [
-        'seen' => false,
+        'attachment',
+        'user_id'
     ];
 }

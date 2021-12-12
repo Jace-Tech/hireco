@@ -14,8 +14,11 @@ class Applicant extends Model
         'user_id',
         'firstname',
         'lastname',
+        'country',
+        'price_per_hour',
         'bio',
         'title',
+        'category',
         'image'
     ];
 }

@@ -11,13 +11,6 @@
                     <h2>Register</h2>
 
                     <!-- Breadcrumbs -->
-                    <nav id="breadcrumbs" class="dark">
-                        <ul>
-                            <li><a href="{{ route('home') }}">Home</a></li>
-                            <li>Register</li>
-                        </ul>
-                    </nav>
-
                 </div>
             </div>
         </div>
@@ -94,7 +87,7 @@
                         <div class="social-login-buttons">
                             <input type="hidden" value="" id="accountType" name="type" />
                             @csrf
-                            <button class="facebook-login ripple-effect" type="submit" formaction="{{ route('linkedin') }}" formmethod="POST">
+                            <button class="facebook-login ripple-effect" type="button">
                                 <i class="icon-brand-facebook-f"></i> Register via Facebook
                             </button>
 

@@ -186,7 +186,7 @@
                             <a href="#">
                                 <div class="user-avatar status-online">
                                     @if(auth()->user()->person->image)
-                                        <img src="{{ auth()->user()->person->image }}" alt="{{ auth()->user()->person->firstname }}">
+                                        <img src="/applicants/image/{{ auth()->user()->person->image }}" alt="{{ auth()->user()->person->firstname }}">
                                     @else
                                         <img src="images/user-avatar-small-01.jpg" alt="{{ auth()->user()->person->firstname }}">
                                     @endif
@@ -202,9 +202,20 @@
 
                                 <!-- User Name / Avatar -->
                                 <div class="user-details">
-                                    <div class="user-avatar status-online"><img src="images/user-avatar-small-01.jpg" alt=""></div>
+                                    <div class="user-avatar status-online">
+                                        @if(auth()->user()->person->image)
+                                            <img src="/applicants/image/{{ auth()->user()->person->image }}" alt="{{ auth()->user()->person->firstname }}">
+                                        @else
+                                            <img src="images/user-avatar-small-01.jpg" alt="{{ auth()->user()->person->firstname }}">
+                                        @endif
+                                    </div>
                                     <div class="user-name">
-                                        Tom Smith <span>Freelancer</span>
+                                        @if(auth()->user()->person->firstname)
+                                            {{auth()->user()->person->firstname}} {{auth()->user()->person->lastname}} <span>{{auth()->user()->accountType}}</span>
+                                        @else
+                                            {{auth()->user()->email}}
+                                        @endif
+
                                     </div>
                                 </div>
 

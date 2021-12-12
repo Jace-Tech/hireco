@@ -4,14 +4,14 @@
 
 		<!-- Basic Page Needs
 		================================================== -->
-		<title>Hireo</title>
+		<title>OnyxsLogistics</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="shortcut icon" href="/logo.jpeg" type="image/x-icon">
 		<!-- CSS
 		================================================== -->
-		<link rel="stylesheet" href="css/style.css">
-		<link rel="stylesheet" href="css/colors/blue.css">
+		<link rel="stylesheet" href="/css/style.css">
+		<link rel="stylesheet" href="/css/colors/blue.css">
 
 	</head>
 	<body>
@@ -29,8 +29,8 @@
 
 		<!-- Footer
 		================================================== -->
-		<div id="footer">
-			
+		<div id="footer" style="background-color: #113E3D;">
+
 			<!-- Footer Top Section -->
 			<div class="footer-top-section">
 				<div class="container">
@@ -39,16 +39,16 @@
 
 							<!-- Footer Rows Container -->
 							<div class="footer-rows-container">
-								
+
 								<!-- Left Side -->
 								<div class="footer-rows-left">
 									<div class="footer-row">
-										<div class="footer-row-inner footer-logo">
-											<img src="images/logo2.png" alt="">
+										<div class="footer-row-inner ">
+											<img style="width: 120px; position: static; transform: translateY(50px); object-fit: contain;" src="/onyx/logo-main.png" alt="">
 										</div>
 									</div>
 								</div>
-								
+
 								<!-- Right Side -->
 								<div class="footer-rows-right">
 
@@ -80,15 +80,15 @@
 											<div class="clearfix"></div>
 										</div>
 									</div>
-									
+
 									<!-- Language Switcher -->
 									<div class="footer-row">
 										<div class="footer-row-inner">
 											<select class="selectpicker language-switcher" data-selected-text-format="count" data-size="5">
 												<option selected>English</option>
-												<option>Français</option>
+												<!-- <option>Français</option>
 												<option>Español</option>
-												<option>Deutsch</option>
+												<option>Deutsch</option> -->
 											</select>
 										</div>
 									</div>
@@ -110,12 +110,12 @@
 						<!-- Links -->
 						<div class="col-xl-2 col-lg-2 col-md-3">
 							<div class="footer-links">
-								<h3>For Candidates</h3>
+								<h3>For Applicant</h3>
 								<ul>
 									<li><a href="#"><span>Browse Jobs</span></a></li>
-									<li><a href="#"><span>Add Resume</span></a></li>
-									<li><a href="#"><span>Job Alerts</span></a></li>
-									<li><a href="#"><span>My Bookmarks</span></a></li>
+									<li><a href="{{ route('profile') }}"><span>Add Resume</span></a></li>
+									<!-- <li><a href="#"><span>Job Alerts</span></a></li> -->
+									<!-- <li><a href="#"><span>My Bookmarks</span></a></li> -->
 								</ul>
 							</div>
 						</div>
@@ -123,12 +123,10 @@
 						<!-- Links -->
 						<div class="col-xl-2 col-lg-2 col-md-3">
 							<div class="footer-links">
-								<h3>For Employers</h3>
+								<h3>For Company</h3>
 								<ul>
 									<li><a href="#"><span>Browse Candidates</span></a></li>
 									<li><a href="#"><span>Post a Job</span></a></li>
-									<li><a href="#"><span>Post a Task</span></a></li>
-									<li><a href="#"><span>Plans & Pricing</span></a></li>
 								</ul>
 							</div>
 						</div>
@@ -150,8 +148,8 @@
 							<div class="footer-links">
 								<h3>Account</h3>
 								<ul>
-									<li><a href="#"><span>Log In</span></a></li>
-									<li><a href="#"><span>My Account</span></a></li>
+									<li><a href="{{ route('login') }}"><span>Log In</span></a></li>
+									<li><a href="{{ route('dashboard') }}"><span>My Account</span></a></li>
 								</ul>
 							</div>
 						</div>
@@ -169,13 +167,13 @@
 				</div>
 			</div>
 			<!-- Footer Middle Section / End -->
-			
+
 			<!-- Footer Copyrights -->
 			<div class="footer-bottom-section">
 				<div class="container">
 					<div class="row">
 						<div class="col-xl-12">
-							© 2018 <strong>Hireo</strong>. All Rights Reserved.
+							© @php echo date("Y");  @endphp <strong>OnyxsLogistics</strong>. All Rights Reserved.
 						</div>
 					</div>
 				</div>
@@ -191,24 +189,24 @@
 
 		<!-- Scripts
 		================================================== -->
-		<script src="js/jquery-3.3.1.min.js"></script>
-		<script src="js/jquery-migrate-3.0.0.min.js"></script>
-		<script src="js/mmenu.min.js"></script>
-		<script src="js/tippy.all.min.js"></script>
-		<script src="js/simplebar.min.js"></script>
-		<script src="js/bootstrap-slider.min.js"></script>
-		<script src="js/bootstrap-select.min.js"></script>
-		<script src="js/snackbar.js"></script>
-		<script src="js/clipboard.min.js"></script>
-		<script src="js/counterup.min.js"></script>
-		<script src="js/magnific-popup.min.js"></script>
-		<script src="js/slick.min.js"></script>
-		<script src="js/custom.js"></script>
+		<script src="/js/jquery-3.3.1.min.js"></script>
+		<script src="/js/jquery-migrate-3.0.0.min.js"></script>
+		<script src="/js/mmenu.min.js"></script>
+		<script src="/js/tippy.all.min.js"></script>
+		<script src="/js/simplebar.min.js"></script>
+		<script src="/js/bootstrap-slider.min.js"></script>
+		<script src="/js/bootstrap-select.min.js"></script>
+		<script src="/js/snackbar.js"></script>
+		<script src="/js/clipboard.min.js"></script>
+		<script src="/js/counterup.min.js"></script>
+		<script src="/js/magnific-popup.min.js"></script>
+		<script src="/js/slick.min.js"></script>
+		<script src="/js/custom.js"></script>
 
 		<!-- Snackbar // documentation: https://www.polonel.com/snackbar/ -->
 		<script>
 		// Snackbar for user status switcher
-		$('#snackbar-user-status label').click(function() { 
+		$('#snackbar-user-status label').click(function() {
 			Snackbar.show({
 				text: 'Your status has been changed!',
 				pos: 'bottom-center',
@@ -217,8 +215,8 @@
 				duration: 3000,
 				textColor: '#fff',
 				backgroundColor: '#383838'
-			}); 
-		}); 
+			});
+		});
 		</script>
 
 
@@ -236,7 +234,7 @@
 
 			// Autocomplete adjustment for homepage
 			if ($('.intro-banner-search-form')[0]) {
-				setTimeout(function(){ 
+				setTimeout(function(){
 					$(".pac-container").prependTo(".intro-search-field.with-autocomplete");
 				}, 300);
 			}

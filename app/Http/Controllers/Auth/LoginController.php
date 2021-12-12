@@ -40,7 +40,7 @@ class LoginController extends Controller
         ]);
 
         auth()->attempt($credientials);
-        return redirect()->intended('dashboard');
+        return redirect()->route('profile');
     }
 
 
@@ -55,8 +55,8 @@ class LoginController extends Controller
         $accountType = session('accountType');
         $response = Socialite::driver('linkedin')->stateless()->user();
 
-        if($accountType == 'applicant' || $accountType == 'freelancer' ):
-            $user = User::findOrCreate(['email' => $response->email], [
+        if($accountType == 'applicant' ):
+            $user = User::firstOrNew(['email' => $response->email], [
                 'accountType' => $accountType,
                 'password' => Str::random(60)
             ]);
@@ -64,7 +64,7 @@ class LoginController extends Controller
             Applicant::create([
                 'firstname' => $response->first_name,
                 'lastname' => $response->last_name,
-                'image' => $response->avater,
+                'image' => $response->avatar,
                 'applicantId' => $this->generateID(10, "APL"),
                 'user_id' => $user->id,
             ]);
@@ -75,7 +75,7 @@ class LoginController extends Controller
         endif;
 
         if($accountType == 'company'):
-            $user = User::findOrCreate(['email' => $response->email], [
+            $user = User::firstOrNew(['email' => $response->email], [
                 'accountType' => $accountType,
                 'password' => Str::random(25)
             ]);

@@ -19,16 +19,16 @@
                     @switch(auth()->user()->accountType)
                         @case('applicant')
                             <ul data-submenu-title="Start">
-                                <li class="active"><a href="dashboard.html"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
-                                <li><a href="dashboard-messages.html"><i class="icon-material-outline-question-answer"></i> Messages <span class="nav-tag">2</span></a></li>
-                                <li><a href="dashboard-bookmarks.html"><i class="icon-material-outline-star-border"></i> Bookmarks</a></li>
-                                <li><a href="dashboard-reviews.html"><i class="icon-material-outline-rate-review"></i> Reviews</a></li>
+                                <li class="active"><a href="{{ route('dashboard') }}"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
+                                <li><a href="{{ route('dashboard') }}"><i class="icon-material-outline-question-answer"></i> Messages <!--<span class="nav-tag">2</span>--></a></li>
+                                <li><a href="{{ route('dashboard') }}"><i class="icon-material-outline-star-border"></i> Bookmarks</a></li>
+                                <li><a href="{{ route('dashboard') }}"><i class="icon-material-outline-rate-review"></i> Reviews</a></li>
                             </ul>
 
 
                             <ul data-submenu-title="Account">
                                 <li><a href="{{ route('profile') }}"><i class="icon-material-outline-settings"></i> Settings</a></li>
-                                <li><a href="index-logged-out.html"><i class="icon-material-outline-power-settings-new"></i> Logout</a></li>
+                                <li><a href="{{ route('logout') }}"><i class="icon-material-outline-power-settings-new"></i> Logout</a></li>
                             </ul>
                             @break
 

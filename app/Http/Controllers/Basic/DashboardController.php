@@ -9,6 +9,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $firstname = auth()->user()->person->firstname;
+        if(!$firstname) return view('pages.dashboard');
+        
         return view('pages.dashboard');
     }
 }

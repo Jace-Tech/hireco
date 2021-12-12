@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBookmarksTable extends Migration
+class AddCategoryToApplicantsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateBookmarksTable extends Migration
      */
     public function up()
     {
-        Schema::create('bookmarks', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->onDelete('cascade');
-            $table->string('user');
-            $table->boolean('seen');
-            $table->timestamps();
+        Schema::table('applicants', function (Blueprint $table) {
+            $table->foreignId('category')->nullable();
         });
     }
 
@@ -29,6 +25,8 @@ class CreateBookmarksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bookmarks');
+        Schema::table('applicants', function (Blueprint $table) {
+            $table->foreignId('category');
+        });
     }
 }
