@@ -49,7 +49,10 @@
 
                         <!-- Trigger -->
                         <div class="header-notifications-trigger">
-                            <a href="#"><i class="icon-feather-bell"></i><span>4</span></a>
+                            <a href="#">
+                                <i class="icon-feather-bell"></i>
+                                {{-- <span>4</span> --}}
+                            </a>
                         </div>
 
                         <!-- Dropdown -->
@@ -65,7 +68,8 @@
                             <div class="header-notifications-content">
                                 <div class="header-notifications-scroll" data-simplebar>
                                     <ul>
-                                        <!-- Notification -->
+                                        <x-notification />
+                                        {{-- <!-- Notification -->
                                         <li class="notifications-not-read">
                                             <a href="dashboard-manage-candidates.html">
                                                 <span class="notification-icon"><i class="icon-material-outline-group"></i></span>
@@ -93,17 +97,9 @@
                                                     Your job listing <span class="color">Full Stack PHP Developer</span> is expiring.
                                                 </span>
                                             </a>
-                                        </li>
+                                        </li> --}}
 
-                                        <!-- Notification -->
-                                        <li>
-                                            <a href="dashboard-manage-candidates.html">
-                                                <span class="notification-icon"><i class="icon-material-outline-group"></i></span>
-                                                <span class="notification-text">
-                                                    <strong>Sindy Forrest</strong> applied for a job <span class="color">Full Stack Software Engineer</span>
-                                                </span>
-                                            </a>
-                                        </li>
+                                        
                                     </ul>
                                 </div>
                             </div>
@@ -115,7 +111,10 @@
                     <!-- Messages -->
                     <div class="header-notifications">
                         <div class="header-notifications-trigger">
-                            <a href="#"><i class="icon-feather-mail"></i><span>3</span></a>
+                            <a href="#">
+                                <i class="icon-feather-mail"></i>
+                                {{-- <span>3</span> --}}
+                            </a>
                         </div>
 
                         <!-- Dropdown -->
@@ -131,41 +130,7 @@
                             <div class="header-notifications-content">
                                 <div class="header-notifications-scroll" data-simplebar>
                                     <ul>
-                                        <!-- Notification -->
-                                        <li class="notifications-not-read">
-                                            <a href="dashboard-messages.html">
-                                                <span class="notification-avatar status-online"><img src="images/user-avatar-small-03.jpg" alt=""></span>
-                                                <div class="notification-text">
-                                                    <strong>David Peterson</strong>
-                                                    <p class="notification-msg-text">Thanks for reaching out. I'm quite busy right now on many...</p>
-                                                    <span class="color">4 hours ago</span>
-                                                </div>
-                                            </a>
-                                        </li>
-
-                                        <!-- Notification -->
-                                        <li class="notifications-not-read">
-                                            <a href="dashboard-messages.html">
-                                                <span class="notification-avatar status-offline"><img src="images/user-avatar-small-02.jpg" alt=""></span>
-                                                <div class="notification-text">
-                                                    <strong>Sindy Forest</strong>
-                                                    <p class="notification-msg-text">Hi Tom! Hate to break it to you, but I'm actually on vacation until...</p>
-                                                    <span class="color">Yesterday</span>
-                                                </div>
-                                            </a>
-                                        </li>
-
-                                        <!-- Notification -->
-                                        <li class="notifications-not-read">
-                                            <a href="dashboard-messages.html">
-                                                <span class="notification-avatar status-online"><img src="images/user-avatar-placeholder.png" alt=""></span>
-                                                <div class="notification-text">
-                                                    <strong>Marcin Kowalski</strong>
-                                                    <p class="notification-msg-text">I received payment. Thanks for cooperation!</p>
-                                                    <span class="color">Yesterday</span>
-                                                </div>
-                                            </a>
-                                        </li>
+                                       <x-message-notification />
                                     </ul>
                                 </div>
                             </div>
@@ -185,11 +150,19 @@
                         <div class="header-notifications-trigger">
                             <a href="#">
                                 <div class="user-avatar status-online">
-                                    @if(auth()->user()->person->image)
-                                        <img src="/applicants/image/{{ auth()->user()->person->image }}" alt="{{ auth()->user()->person->firstname }}">
-                                    @else
-                                        <img src="images/user-avatar-small-01.jpg" alt="{{ auth()->user()->person->firstname }}">
-                                    @endif
+                                    @if (auth()->user()->accountType === 'applicant')
+                                            @if(auth()->user()->person->image)
+                                                <img src="/applicants/image/{{ auth()->user()->person->image }}" alt="{{auth()->user()->person->first}}">
+                                            @else
+                                                <img src="/company/image/{{ auth()->user()->person->logo }}" alt="">
+                                            @endif
+                                        @else
+                                            @if(auth()->user()->person->logo)
+                                                <img src="/company/image/{{ auth()->user()->person->logo }}" alt="{{auth()->user()->person->name}}">
+                                            @else
+                                                <img src="/company/image/" alt="">
+                                            @endif
+                                        @endif
                                 </div>
                             </a>
                         </div>
@@ -203,21 +176,38 @@
                                 <!-- User Name / Avatar -->
                                 <div class="user-details">
                                     <div class="user-avatar status-online">
-                                        @if(auth()->user()->person->image)
-                                            <img src="/applicants/image/{{ auth()->user()->person->image }}" alt="{{ auth()->user()->person->firstname }}">
+                                        @if (auth()->user()->accountType === 'applicant')
+                                            @if(auth()->user()->person->image)
+                                                <img src="/applicants/image/{{ auth()->user()->person->image }}" alt="auth()->user()->person->first">
+                                            @else
+                                                <img src="/company/image/{{ auth()->user()->person->logo }}" alt="">
+                                            @endif
                                         @else
-                                            <img src="images/user-avatar-small-01.jpg" alt="{{ auth()->user()->person->firstname }}">
+                                            @if(auth()->user()->person->logo)
+                                                <img src="/company/image/{{ auth()->user()->person->logo }}" alt="auth()->user()->person->first">
+                                            @else
+                                                <img src="/company/image/" alt="">
+                                            @endif
                                         @endif
                                     </div>
                                     <div class="user-name">
-                                        @if(auth()->user()->person->firstname)
-                                            {{auth()->user()->person->firstname}} {{auth()->user()->person->lastname}} <span>{{auth()->user()->accountType}}</span>
+                                        @if (auth()->user()->accountType === 'applicant')
+                                            @if(auth()->user()->person->firstname)
+                                                {{auth()->user()->person->firstname}} {{auth()->user()->person->lastname}} <span>{{auth()->user()->accountType}}</span>
+                                            @else
+                                                {{auth()->user()->email}}
+                                            @endif
                                         @else
-                                            {{auth()->user()->email}}
+                                            @if(auth()->user()->person->name)
+                                                {{auth()->user()->person->name}} <span>{{auth()->user()->accountType}}</span>
+                                            @else
+                                                {{auth()->user()->email}}
+                                            @endif
                                         @endif
 
                                     </div>
                                 </div>
+
 
                                 <!-- User Status Switcher -->
                                 <div class="status-switch" id="snackbar-user-status">
@@ -226,11 +216,12 @@
                                     <!-- Status Indicator -->
                                     <span class="status-indicator" aria-hidden="true"></span>
                                 </div>
+                                
                         </div>
 
                         <ul class="user-menu-small-nav">
-                            <li><a href="dashboard.html"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
-                            <li><a href="dashboard-settings.html"><i class="icon-material-outline-settings"></i> Settings</a></li>
+                            <li><a href="{{ route('dashboard') }}"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
+                            <li><a href="{{ route('profile') }}"><i class="icon-material-outline-settings"></i> Settings</a></li>
                             <li>
                                 <form action="{{ route('logout') }}" method="post">
                                     @csrf

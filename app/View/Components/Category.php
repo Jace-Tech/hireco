@@ -13,11 +13,13 @@ class Category extends Component
      */
     public $icon;
     public $category;
+    public $jobs;
 
-    public function __construct($icon, $category)
+    public function __construct($icon, $category, $jobs)
     {
         $this->icon = $icon;
         $this->category = $category;
+        $this->jobs = $jobs;
     }
 
     /**

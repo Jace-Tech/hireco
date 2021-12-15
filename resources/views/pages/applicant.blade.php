@@ -1,6 +1,13 @@
+@php
+    $navActive = "";
+    $active = "job";
+@endphp
+
+
 @extends('layouts.home')
 
 @section('content')
+
     <!-- Titlebar
     ================================================== -->
     <div class="single-page-header freelancer-header" data-background-image="/images/single-freelancer.jpg">
@@ -41,6 +48,11 @@
                         @foreach (explode($applicant->bio, '\n') as $para)
                             <p>{{ $para }}</p>
                         @endforeach
+                    </div>
+                @else
+                    <div class="single-page-section">
+                        <h3 class="margin-bottom-25">About Me</h3>
+                        <p>No bio found</p>
                     </div>
                 @endif
 
@@ -184,11 +196,11 @@
                 <div class="sidebar-container">
                     
                     <!-- Profile Overview -->
-                    <div class="profile-overview">
+                    {{-- <div class="profile-overview">
                         <div class="overview-item"><strong>$35</strong><span>Hourly Rate</span></div>
                         <div class="overview-item"><strong>53</strong><span>Jobs Done</span></div>
                         <div class="overview-item"><strong>22</strong><span>Rehired</span></div>
-                    </div>
+                    </div> --}}
 
                     <!-- Button -->
                     <a href="#small-dialog" class="apply-now-button popup-with-zoom-anim margin-bottom-50">Make an Offer <i class="icon-material-outline-arrow-right-alt"></i></a>
@@ -228,7 +240,7 @@
                     </div> --}}
                     
                     <!-- Widget -->
-                    <div class="sidebar-widget">
+                    {{-- <div class="sidebar-widget">
                         <h3>Social Profiles</h3>
                         <div class="freelancer-socials margin-top-25">
                             <ul>
@@ -238,7 +250,7 @@
                                 <li><a href="#" title="GitHub" data-tippy-placement="top"><i class="icon-brand-github"></i></a></li>
                             </ul>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <!-- Widget -->
                     {{-- <div class="sidebar-widget">
@@ -256,25 +268,28 @@
                     </div> --}}
 
                     <!-- Widget -->
-                    <div class="sidebar-widget">
-                        <h3>Attachments</h3>
-                        <div class="attachments-container">
-                            <a href="/applicants/attachment/{{ $applicant->attachment }}" class="attachment-box ripple-effect"><span>CV</span><i>PDF</i></a>
+                    @if( $applicant->user->attachment)
+                        <div class="sidebar-widget">
+                            <h3>Attachments</h3>
+                            <div class="attachments-container">
+                                <a href="/applicants/attachment/{{ $applicant->user->attachment->attachment }}" download="{{  $applicant->firstname }} CV" class="attachment-box ripple-effect"><span>CV</span><i>PDF</i></a>
+                            </div>
                         </div>
-                    </div>
+                    @endif
 
                     <!-- Sidebar Widget -->
                     <div class="sidebar-widget">
                         <h3>Bookmark or Share</h3>
 
                         <!-- Bookmark Button -->
-                        <form action="" method="Post">
+                        {{-- <form action="{{ route('applicant.bookmark', $applicant->applicantId) }}" method="Post">
+                            @csrf
+
                             <button class="bookmark-button margin-bottom-25">
                                 <span class="bookmark-icon"></span>
                                 <span class="bookmark-text">Bookmark</span>
-                                <span class="bookmarked-text">Bookmarked</span>
                             </button>
-                        </form>
+                        </form> --}}
 
                         <!-- Copy URL -->
                         <div class="copy-url">
@@ -288,7 +303,9 @@
                             <div class="share-buttons-content">
                                 <span>Interesting? <strong>Share It!</strong></span>
                                 <ul class="share-buttons-icons">
-                                    <li><a href="#" data-button-color="#3b5998" title="Share on Facebook" data-tippy-placement="top"><i class="icon-brand-facebook-f"></i></a></li>
+                                    <li><a href="#"  onclick="
+                                        window.open(`https\:\/\/www.facebook.com/sharer/sharer.php?u=`+ encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); 
+                                        return false;" data-button-color="#3b5998" title="Share on Facebook" data-tippy-placement="top"><i class="icon-brand-facebook-f"></i></a></li>
                                     <li><a href="#" data-button-color="#1da1f2" title="Share on Twitter" data-tippy-placement="top"><i class="icon-brand-twitter"></i></a></li>
                                     <li><a href="#" data-button-color="#dd4b39" title="Share on Google Plus" data-tippy-placement="top"><i class="icon-brand-google-plus-g"></i></a></li>
                                     <li><a href="#" data-button-color="#0077b5" title="Share on LinkedIn" data-tippy-placement="top"><i class="icon-brand-linkedin-in"></i></a></li>

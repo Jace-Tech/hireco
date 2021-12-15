@@ -9,6 +9,7 @@ use Str;
 use Hash;
 use App\Models\User;
 use App\Models\Applicant;
+use App\Models\Company;
 
 class RegisterController extends Controller
 {
@@ -59,13 +60,12 @@ class RegisterController extends Controller
                 'accountType' => $request->account_type
             ]);
 
-            Applicant::create([
-                'applicantId' => $this->generateID(10, "APL"),
+            Company::create([
+                'companyId' => $this->generateID(10, "CPN"),
                 'user_id' => $user->id,
             ]);
 
-            auth()->attempt($request->only(['email', 'password']));
-            return redirect()->route('dashboard');
+            return redirect()->route('login');
         endif;
 
     }

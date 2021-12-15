@@ -1,7 +1,6 @@
 
 <!--Freelancer -->
     <div class="freelancer">
-
         <!-- Overview -->
         <div class="freelancer-overview">
             <div class="freelancer-overview-inner">
@@ -12,12 +11,12 @@
                 <!-- Avatar -->
                 <div class="freelancer-avatar">
                     <div class="verified-badge"></div>
-                    <a href="#"><img src="/applicants/image/{{ $image }}" alt="{{ $firstname }}"></a>
+                    <a href="{{ route('applicant.profile', $applicant->applicantId) }}"><img src="/applicants/image/{{ $image }}" alt="{{ $firstname }}"></a>
                 </div>
                 <!-- Name -->
                 <div class="freelancer-name">
-                    <h4><a href="#">{{ $firstname . " " . $lastname  }} <img class="flag" src="/images/flags/{{ strtolower($country['code']) }}.svg" alt="" title="{{ $country['name'] }}" data-tippy-placement="top"></a></h4>
-                    <span> {{ $country['name']}} </span>
+                    <h4><a href="{{ route('applicant.profile', $applicant->applicantId) }}">{{ $firstname . " " . $lastname  }} <img class="flag" src="/images/flags/{{ strtolower($country) }}.svg" alt="" title="{{ $country['name'] }}" data-tippy-placement="top"></a></h4>
+                    <span> {{ $countries->firstWhere('code', $country)['name']}} </span>
                 </div>
 
                 <!-- Rating -->
@@ -36,7 +35,7 @@
                     <li>Job Success <strong>95%</strong></li>
                 </ul>
             </div> --}}
-            <a href="{{ route('applicant.profile', $id) }}" class="button button-sliding-icon ripple-effect">View Profile <i class="icon-material-outline-arrow-right-alt"></i></a>
+            <a href="{{ route('applicant.profile', $applicant->applicantId) }}" class="button button-sliding-icon ripple-effect">View Profile <i class="icon-material-outline-arrow-right-alt"></i></a>
         </div>
     </div>
 <!-- Freelancer / End -->

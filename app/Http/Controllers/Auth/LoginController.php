@@ -39,8 +39,9 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
 
-        auth()->attempt($credientials);
-        return redirect()->route('profile');
+        if(!auth()->attempt($credientials))
+            return redirect()->route('login')->with('message', 'incorrect credientials');
+        return redirect()->route('dashboard');
     }
 
 
@@ -80,10 +81,8 @@ class LoginController extends Controller
                 'password' => Str::random(25)
             ]);
 
-            Applicant::create([
-                'firstname' => $response->firstname,
-                'lastname' => $response->lastname,
-                'applicantId' => $this->generateID(10, "APL"),
+            Company::create([
+                'companyId' => $this->generateID(10, "CPN"),
                 'user_id' => $user->id,
             ]);
 

@@ -383,72 +383,136 @@ class ProfileController extends Controller
 
     public function store (Request $request){
 
-        if($request->submit == "account"){
-            $request->validate([
-                'submit' => 'required',
-                'firstname' => 'required',
-                'lastname' => 'required',
-                'email' => 'required',
-                'account_type' => 'required',
-            ]);
+        switch (auth()->user()->accountType) {
+            case 'applicant':
 
-            if($request->account_type){
-                $imageName = "";
-                if($request->image){
-                    $imageName = time() . "-" . $request->firstname . '.'  . $request->image->extension();
-                    $request->image->move(public_path('applicants/image'), $imageName);
+                if($request->submit == "account"){
+                    $request->validate([
+                        'submit' => 'required',
+                        'firstname' => 'required',
+                        'lastname' => 'required',
+                        'email' => 'required',
+                        'account_type' => 'required',
+                    ]);
+
+                    $imageName = "";
+
+                    if($request->image){
+                        $imageName = time() . "-" . $request->firstname . '.'  . $request->image->extension();
+                        $request->image->move(public_path('applicants/image'), $imageName);
+                    }
+
+                    auth()->user()->person()->update([
+                        'firstname' => $request->firstname,
+                        'lastname' => $request->lastname,
+                        'image' => $imageName
+                    ]);
+
+                    auth()->user()->update([
+                        'email' => $request->email,
+                        'accountType' => $request->account_type
+                    ]);
+
+                    return redirect()->back();
+                    
+                }
+                
+                if($request->submit == "profile"){
+                    $attachments = collect($request->attachments);
+
+                    $request->validate([
+                        'category' => 'required',
+                        'country' => 'required',
+                        'attachments' => 'required',
+                        'title' => 'required',
+                        'bio' => 'required'
+                    ]);
+
+                    if(auth()->user()->accountType == 'applicant') {
+                        dd($request);
+                        
+                        $fileName = time() . "-" . auth()->user()->person->firstname . '.'  . $request->attachment->extension();
+                        $request->attachment->move(public_path('applicants/attachment'), $fileName);
+
+                        auth()->user()->person()->update([
+                            'category' => $request->category,
+                            'country' => $request->country,
+                            'title' => $request->title,
+                            'bio' => $request->bio
+                        ]);
+
+                        auth()->user()->attachment()->create([
+                            "attachment" => $fileName
+                        ]);
+
+                        return redirect()->back()->with('alert', ['type' => "success", 'message' => 'Change saved']);
+                    }
+
+
+
+
+                }
+                break;
+
+            case 'company':
+                if($request->submit == "account"){
+                    $request->validate([
+                        'submit' => 'required',
+                        'name' => 'required',
+                        'title' => 'required',
+                        'email' => 'required',
+                        'account_type' => 'required',
+                    ]);
+
+                    $imageName = "";
+                    
+                    if($request->logo){
+                        $imageName = time() . "-" . $request->name . '.'  . $request->logo->extension();
+                        $request->logo->move(public_path('company/image'), $imageName);
+                    }
+
+                    auth()->user()->person()->update([
+                        'name' => $request->name,
+                        'title' => $request->title,
+                        'logo' => $imageName
+                    ]);
+
+                    auth()->user()->update([
+                        'email' => $request->email,
+                        'accountType' => $request->account_type
+                    ]);
+
+                    return redirect()->back()->with('alert', ['type' => "success", 'message' => 'Change saved']);
+                    
                 }
 
-                auth()->user()->person()->update([
-                    'firstname' => $request->firstname,
-                    'lastname' => $request->lastname,
-                    'image' => $imageName
-                ]);
+                if($request->submit == "profile"){
+                    $request->validate([
+                        'submit' => 'required',
+                        'latitude' => 'required',
+                        'longitude' => 'required',
+                        'category' => 'required',
+                        'country' => 'required',
+                        'bio' => 'required',
+                    ]);
 
-                auth()->user()->update([
-                    'email' => $request->email,
-                    'accountType' => $request->account_type
-                ]);
+                    auth()->user()->person()->update([
+                        'bio' => $request->bio,
+                        'latitude' => $request->latitude,
+                        'longitude' => $request->longitude,
+                        'category' => $request->category,
+                        'country' => $request->country,
+                    ]);
 
-                return redirect()->back();
-            }
+                    return redirect()->back()->with('message', 'Change saved');
+
+                }
+                break;
+            
+            default:
+                break;
         }
-        
-        if($request->submit == "profile"){
-            $attachments = collect($request->attachments);
 
-            $request->validate([
-                'category' => 'required',
-                'country' => 'required',
-                'attachments' => 'required',
-                'title' => 'required',
-                'bio' => 'required'
-            ]);
-
-            if(auth()->user()->accountType == 'applicant') {
-                dd($request);
-                
-                $fileName = time() . "-" . auth()->user()->person->firstname . '.'  . $request->attachment->extension();
-                $request->attachment->move(public_path('applicants/attachment'), $fileName);
-
-                auth()->user()->person()->update([
-                    'category' => $request->category,
-                    'country' => $request->country,
-                    'title' => $request->title,
-                    'bio' => $request->bio
-                ]);
-
-                auth()->user()->attachment()->create([
-                    "attachment" => $fileName
-                ]);
-
-                return redirect()->back();
-            }
-
-
-
-
-        }
 
 
 

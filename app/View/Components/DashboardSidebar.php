@@ -11,9 +11,10 @@ class DashboardSidebar extends Component
      *
      * @return void
      */
-    public function __construct()
+    public $active;
+    public function __construct(string $active = 'dashboard')
     {
-        //
+        $this->active = $active;
     }
 
     /**

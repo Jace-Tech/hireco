@@ -16,12 +16,11 @@
     </head>
 
     <body class="gray">
-
         <!-- Wrapper -->
         <div id="wrapper">
             <!-- Header Container
             ================================================== -->
-            <x-dashboard-nav />
+            <x-dashboard-nav :navActive="$navActive" />
             <!-- Header Container / End -->
 
             <!-- Dashboard Container -->
@@ -29,7 +28,7 @@
 
                 <!-- Dashboard Sidebar
                 ================================================== -->
-                <x-dashboard-sidebar />
+                <x-dashboard-sidebar :active="$active" />
                 <!-- Dashboard Sidebar / End -->
 
                 @yield('content')

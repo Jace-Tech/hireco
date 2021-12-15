@@ -118,6 +118,11 @@
 /* ---------------------------------- */
 /* Forms Reset & Styles
 ------------------------------------- */
+
+*{
+	font-family: 'Nunito', Helvetica, sans-serif;
+}
+
 input,
 input[type="text"],
 input[type="password"],

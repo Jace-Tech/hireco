@@ -19,41 +19,49 @@
                     @switch(auth()->user()->accountType)
                         @case('applicant')
                             <ul data-submenu-title="Start">
-                                <li class="active"><a href="{{ route('dashboard') }}"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
-                                <li><a href="{{ route('dashboard') }}"><i class="icon-material-outline-question-answer"></i> Messages <!--<span class="nav-tag">2</span>--></a></li>
-                                <li><a href="{{ route('dashboard') }}"><i class="icon-material-outline-star-border"></i> Bookmarks</a></li>
-                                <li><a href="{{ route('dashboard') }}"><i class="icon-material-outline-rate-review"></i> Reviews</a></li>
+                                <li @if($active === 'dashboard') class="active" @endif><a href="{{ route('dashboard') }}"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
+                                <li @if($active === 'message') class="active" @endif><a href="{{ route('message') }}"><i class="icon-material-outline-question-answer"></i> Messages <!--<span class="nav-tag">2</span>--></a></li>
+                                <li @if($active === 'bookmark') class="active" @endif><a href="{{ route('bookmark') }}"><i class="icon-material-outline-star-border"></i> Bookmarks</a></li>
+                                {{-- <li @if($active === 'review') class="active" @endif><a href="{{ route('review') }}"><i class="icon-material-outline-rate-review"></i> Reviews</a></li> --}}
                             </ul>
 
+                            <ul data-submenu-title="Manage">
+                                <li @if($active === 'job') class="active" @endif><a href="#"><i class="icon-material-outline-business-center"></i> Jobs</a>
+                                    <ul>
+                                        <li><a href="{{ route('jobs') }}">Applied Jobs </a></li>
+                                        {{-- <li><a href="{{ route('jobs') }}">Manage Candidates</a></li> --}}
+                                    </ul>
+                                </li>
+                            </ul>
 
                             <ul data-submenu-title="Account">
-                                <li><a href="{{ route('profile') }}"><i class="icon-material-outline-settings"></i> Settings</a></li>
+                                <li @if($active === 'profile') class="active" @endif><a href="{{ route('profile') }}"><i class="icon-material-outline-settings"></i> Settings</a></li>
                                 <li><a href="{{ route('logout') }}"><i class="icon-material-outline-power-settings-new"></i> Logout</a></li>
                             </ul>
                             @break
 
                         @case('company')
                             <ul data-submenu-title="Start">
-                                <li class="active"><a href="dashboard.html"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
-                                <li><a href="dashboard-messages.html"><i class="icon-material-outline-question-answer"></i> Messages <span class="nav-tag">2</span></a></li>
-                                <li><a href="dashboard-bookmarks.html"><i class="icon-material-outline-star-border"></i> Bookmarks</a></li>
-                                <li><a href="dashboard-reviews.html"><i class="icon-material-outline-rate-review"></i> Reviews</a></li>
+                                <li @if($active === 'dashboard') class="active" @endif><a href="{{ route('dashboard') }}"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
+                                <li @if($active === 'message') class="active" @endif><a href="{{ route('message') }}"><i class="icon-material-outline-question-answer"></i> Messages <span class="nav-tag">2</span></a></li>
+                                <li @if($active === 'bookmark') class="active" @endif><a href="{{ route('bookmark') }}"><i class="icon-material-outline-star-border"></i> Bookmarks</a></li>
+                                {{-- <li @if($active === 'review') class="active" @endif><a href="{{ route('review') }}"><i class="icon-material-outline-rate-review"></i> Reviews</a></li> --}}
                             </ul>
 
                             <ul data-submenu-title="Organize and Manage">
-                                <li><a href="#"><i class="icon-material-outline-business-center"></i> Jobs</a>
+                                <li @if($active === 'job') class="active" @endif><a href="#"><i class="icon-material-outline-business-center"></i> Jobs</a>
                                     <ul>
-                                        <li><a href="dashboard-manage-jobs.html">Manage Jobs <span class="nav-tag">3</span></a></li>
-                                        <li><a href="dashboard-manage-candidates.html">Manage Candidates</a></li>
-                                        <li><a href="dashboard-post-a-job.html">Post a Job</a></li>
+                                        <li><a href="{{ route('jobs') }}">Manage Jobs </a></li>
+                                        {{-- <li><a href="{{ route('jobs') }}">Manage Candidates</a></li> --}}
+                                        <li><a href="{{ route('job.post') }}">Post a Job</a></li>
                                     </ul>
                                 </li>
                             </ul>
 
 
                             <ul data-submenu-title="Account">
-                                <li><a href="dashboard-settings.html"><i class="icon-material-outline-settings"></i> Settings</a></li>
-                                <li><a href="index-logged-out.html"><i class="icon-material-outline-power-settings-new"></i> Logout</a></li>
+                                <li @if($active === 'profile') class="active" @endif><a href="dashboard-settings.html"><i class="icon-material-outline-settings"></i> Settings</a></li>
+                                <li><a href="{{ route('logout') }}"><i class="icon-material-outline-power-settings-new"></i> Logout</a></li>
                             </ul>
                             @break
                     @endswitch

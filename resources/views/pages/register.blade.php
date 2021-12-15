@@ -83,16 +83,16 @@
                     <!-- Social Login -->
                     <div class="social-login-separator"><span>or</span></div>
 
-                    <form id="">
-                        <div class="social-login-buttons">
+                    <form id="" style="width: 100%; display: flex;">
+                        <div class="social-login-buttons" style="flex: 1; width: 100%; ">
                             <input type="hidden" value="" id="accountType" name="type" />
                             @csrf
-                            <button class="facebook-login ripple-effect" type="button">
+                            {{-- <button class="facebook-login ripple-effect" type="button">
                                 <i class="icon-brand-facebook-f"></i> Register via Facebook
-                            </button>
+                            </button> --}}
 
-                            <button class="linkedin-login ripple-effect"  type="submit" formaction="{{ route('linkedin') }}" formmethod="POST">
-                                <i class="icon-brand-linkedin"></i> Register via Linkedin
+                            <button class="linkedin-login ripple-effect" style="flex: 1; min-width: 100%; display: block; width: 100%;" type="submit" formaction="{{ route('linkedin') }}" formmethod="POST">
+                                <i class="icon-brand-linkedin"></i> Login via Linkedin
                             </button>
                         </div>
                     </form>

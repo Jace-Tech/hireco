@@ -1085,8 +1085,8 @@ $(document).ready(function(){
 
 	function _populateFileField($button) {
 		var selectedFile = [];
-	    for (var i = 0; i < $button.get(0).files.length; ++i) {
-	        selectedFile.push($button.get(0).files[i].name +'<br>');
+	    for (var i = 0; i < $button.files.length; ++i) {
+	        selectedFile.push($button.files[i].name +'<br>');
 	    }
 	    uploadButton.$nameField.html(selectedFile);
 	}

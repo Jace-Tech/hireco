@@ -17,7 +17,7 @@ class CreateBookmarksTable extends Migration
             $table->id();
             $table->foreignId('user_id')->onDelete('cascade');
             $table->string('user');
-            $table->boolean('seen');
+            $table->boolean('seen')->default();
             $table->timestamps();
         });
     }

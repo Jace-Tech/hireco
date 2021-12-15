@@ -76,7 +76,7 @@
                 <div class="col-xl-12">
 
                     <div class="section-headline centered margin-bottom-15">
-                        <h3>Popular Job Categories</h3>
+                        <h3>Job Categories</h3>
                     </div>
 
                     <!-- Category Boxes Container -->
@@ -86,6 +86,7 @@
                             <x-category
                                 :icon="$category->icon"
                                 :category="$category->category"
+                                :jobs="$category->jobs($category->id)->count()"
                             />
                         @endforeach
 
@@ -289,7 +290,7 @@
                     <!-- Section Headline -->
                     <div class="section-headline margin-top-0 margin-bottom-25">
                         <h3>Rated Applicants</h3>
-                        <a href="freelancers-grid-layout.html" class="headline-link">Browse All Freelancers</a>
+                        <a href="#" class="headline-link">Browse All </a>
                     </div>
                 </div>
 
@@ -300,9 +301,11 @@
                                 :title="$applicant->title"
                                 :country="$applicant->country"
                                 :firstname="$applicant->firstname"
+                                :countries="$countries"
                                 :lastname="$applicant->lastname"
                                 :id="$applicant->applicantId"
                                 :image="$applicant->image"
+                                :applicant="$applicant"
                             />
                         @endforeach
                     </div>

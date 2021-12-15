@@ -11,9 +11,10 @@ class DashboardNav extends Component
      *
      * @return void
      */
-    public function __construct()
+    public $navActive;
+    public function __construct(string $navActive = 'home')
     {
-        //
+        $this->navActive = $navActive;
     }
 
     /**

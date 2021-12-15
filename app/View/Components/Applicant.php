@@ -16,9 +16,11 @@ class Applicant extends Component
     public $lastname;
     public $country;
     public $title;
+    public $applicant;
+    public $countries;
     public $id;
 
-    public function __construct($image, $firstname, $lastname, $country, $id, $title)
+    public function __construct($image, $firstname, $lastname, $country, $id, $title, $applicant, $countries)
     {
         $this->image = $image;
         $this->lastname = $lastname;
@@ -26,6 +28,8 @@ class Applicant extends Component
         $this->firstname = $firstname;
         $this->id = $id;
         $this->title = $title;
+        $this->applicant = $applicant;
+        $this->countries = $countries;
 
     }
 

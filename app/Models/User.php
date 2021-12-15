@@ -14,6 +14,10 @@ use App\Models\Message;
 use App\Models\Bookmark;
 use App\Models\Attachments;
 use App\Models\Skill;
+use App\Models\Review;
+use App\Models\Note;
+use App\Models\Job;
+use App\Models\Candidate;
 
 class User extends Authenticatable
 {
@@ -32,7 +36,15 @@ class User extends Authenticatable
             if($accountType == "applicant"){
                 return $this->hasOne(Applicant::class);
             }
+
+            if($accountType == "company"){
+                return $this->hasOne(Company::class);
+            }
         }
+    }
+
+    public function job () {
+        return $this->hasMany(Job::class);
     }
 
     public function skill () {
@@ -49,6 +61,27 @@ class User extends Authenticatable
 
     public function bookmark() {
         return $this->hasMany(Bookmark::class);
+    }
+
+    public function review() {
+        return $this->hasMany(Review::class);
+    }
+
+    public function note() {
+        return $this->hasMany(Note::class);
+    }
+
+    public function appliedJobs() {
+        return $this->hasMany(Candidate::class);
+    }
+
+    public function hasApplied($id) {
+        $job = Candidate::where([
+            ["user_id", auth()->user()->id],
+            ["id", $id]
+        ])->first();
+
+        return $hasApplied = $job ? true : false;
     }
 
     protected $fillable = [
